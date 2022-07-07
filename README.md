@@ -1,8 +1,5 @@
-# Ably Labs Template Repo
+# Online collaborative experiences with serverless WebSockets
 
----
-
-// This is a template repository to be used for all Ably Labs demos, tools &amp; proof of concepts. Follow these steps to so this repo is easy to use for visitors & maintainers.
 
 1. Update the description of this repo.
 2. Add [topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics) to this repo to clarify the language, tech stack and use case.
@@ -71,4 +68,4 @@ Want to help contributing to this project? Have a look at our [contributing guid
 - [Visit our website](https://ably.com)
 
 ---
-[![Ably logo](https://static.ably.dev/badge-black.svg?ably-labs-template-repo)](https://ably.com)
+[![Ably logo](https://static.ably.dev/badge-black.svg?collaborative-experiences-websockets)](https://ably.com)

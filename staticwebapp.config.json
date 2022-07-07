@@ -1,0 +1,19 @@
+{
+    "routes": [
+      {
+        "route": "/api/*",
+        "methods": ["GET", "POST"]
+      }
+    ],
+    "navigationFallback": {
+      "rewrite": "index.html",
+      "exclude": ["/og.png","/assets/*.{png,jpg,gif}", "/css/*"]
+    },
+    "globalHeaders": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST"
+    },
+    "mimeTypes": {
+      ".json": "text/json"
+    }
+  }
