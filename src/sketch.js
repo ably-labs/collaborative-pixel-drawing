@@ -84,7 +84,8 @@ function clickCell(x, y) {
 function saveGridAsPng() {
     strokeColor = 0;
     draw();
-    saveCanvas("pixel-grid", "png");
+    const date = new Date().toISOString().split("T")[0];
+    saveCanvas(`${date}-pixel-drawing`, "png");
     strokeColor = 50;
 }
 
