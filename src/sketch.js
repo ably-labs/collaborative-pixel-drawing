@@ -1,5 +1,5 @@
-let rows;
-let cols;
+const rows = 16;
+const cols = rows;
 const resoX = 500;
 const resoY = resoX;
 let sizeX;
@@ -16,9 +16,10 @@ function setup() {
     saveButton.mousePressed(saveGridAsPng);
     const clearButton = createButton("Reset");
     clearButton.mousePressed(clearGrid);
-    slider = createSlider(4, 16, 8, 4);
-    slider.changed(initGrid);
-    initGrid();
+    sizeX = resoX / rows;
+    sizeY = resoY / cols;
+    createCanvas(resoX, resoY);
+    createGrid();
 }
 
 function start() {
@@ -32,15 +33,6 @@ function start() {
     const user = new User(clientId, userColor);
     users.push(user);
     connectAbly(user);
-}
-
-function initGrid() {
-    rows = slider.value();
-    cols = rows;
-    sizeX = resoX / rows;
-    sizeY = resoY / cols;
-    createCanvas(resoX, resoY);
-    createGrid();
 }
 
 function draw() {
