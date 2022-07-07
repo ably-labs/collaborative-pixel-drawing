@@ -3,7 +3,7 @@ let channel;
 const channelName = "pixel-art-drawing";
 const hoverPositionMessage = "hover"; // x, y positions
 const clickPositionMessage = "click"; // x, y positions
-const resetMessage = "rest";
+const resetMessage = "reset";
 
 async function connectAbly(user) {
   
