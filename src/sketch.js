@@ -62,7 +62,6 @@ function resetGrid() {
 }
 
 async function mouseClicked() {
-    console.log(`${mouseX}-${mouseY}`)
     if (mouseX >= 0 && mouseX <= resoX && mouseY >= 0 && mouseY <= resoY) {
         clickCell(mouseX, mouseY);
         await channel?.publish(clickPositionMessage, {
