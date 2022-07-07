@@ -17,7 +17,7 @@ class User {
         this.col = floor(this.x / sizeX);
         this.row = floor(this.y / sizeY);
         if (this.col !== this.prevCol || this.row !== this.prevRow) {
-            channel?.publish(hoverPosition, {
+            channel?.publish(hoverPositionMessage, {
                 x: this.x,
                 y: this.y,
             });

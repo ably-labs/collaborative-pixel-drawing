@@ -12,14 +12,17 @@ const colorArray = ["#fff", "#55ffff", "#ff55ff", "#000"];
 
 function setup() {
     frameRate(15);
-    const saveButton = createButton("Save as PNG");
-    saveButton.mousePressed(saveGridAsPng);
-    const clearButton = createButton("Reset");
-    clearButton.mousePressed(clearGrid);
     sizeX = resoX / rows;
     sizeY = resoY / cols;
-    createCanvas(resoX, resoY);
-    createGrid();
+    const canvas = createCanvas(resoX, resoY);
+    canvas.parent("p5canvas");
+    const saveButton = createButton("Save as PNG");
+    saveButton.parent("p5canvas");
+    saveButton.mousePressed(saveGridAsPng);
+    const resetButton = createButton("Reset");
+    resetButton.mousePressed(clearGrid);
+    resetButton.parent("p5canvas");
+    resetGrid();
 }
 
 function start() {
@@ -47,7 +50,7 @@ function draw() {
     });
 }
 
-function createGrid() {
+function resetGrid() {
     cells = [];
     for (let col = 0; col < cols; col++) {
         for (let row = 0; row < rows; row++) {
@@ -59,9 +62,10 @@ function createGrid() {
 }
 
 async function mouseClicked() {
-    if (mouseX <= resoX && mouseY <= resoY) {
+    console.log(`${mouseX}-${mouseY}`)
+    if (mouseX >= 0 && mouseX <= resoX && mouseY >= 0 && mouseY <= resoY) {
         clickCell(mouseX, mouseY);
-        await channel?.publish(clickPosition, {
+        await channel?.publish(clickPositionMessage, {
             x: mouseX,
             y: mouseY,
         });
@@ -85,7 +89,8 @@ function saveGridAsPng() {
 }
 
 function clearGrid() {
-    createGrid();
+    resetGrid();
+    channel?.publish(resetMessage, {});
 }
 
 function addUser(id, color) {

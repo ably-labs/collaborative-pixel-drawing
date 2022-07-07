@@ -1,8 +1,9 @@
 let ably;
 let channel;
 const channelName = "pixel-art-drawing";
-const hoverPosition = "hover"; // x, y positions with min and max values.
-const clickPosition = "click"; // x, y positions with min and max values.
+const hoverPositionMessage = "hover"; // x, y positions
+const clickPositionMessage = "click"; // x, y positions
+const resetMessage = "rest";
 
 async function connectAbly(user) {
   
@@ -38,11 +39,14 @@ async function connectAbly(user) {
       channel.presence.enter({
         color: user.strokeColor,
       });
-      channel.subscribe(hoverPosition, (message) => {
+      channel.subscribe(hoverPositionMessage, (message) => {
         setUserPosition(message.clientId, message.data.x, message.data.y);
       });
-      channel.subscribe(clickPosition, (message) => {
+      channel.subscribe(clickPositionMessage, (message) => {
         clickCell(message.data.x, message.data.y);
+      });
+      channel.subscribe(resetMessage, () => {
+        resetGrid();
       });
     });
     ably.connection.on("closed", () => {
