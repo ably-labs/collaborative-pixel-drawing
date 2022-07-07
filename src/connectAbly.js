@@ -1,32 +1,40 @@
 let ably;
 let channel;
 const channelName = "pixel-art-drawing";
-const coordinatesMessage = "coordinate"; // x, y positions with min and max values.
-const clickMessage = "click"; // true or false
-let clientId;
+const hoverPosition = "hover"; // x, y positions with min and max values.
+const clickPosition = "click"; // x, y positions with min and max values.
 
-async function connectAbly() {
-  clientId = getRandomInt().toString();
+async function connectAbly(user) {
+  
   const isConnected = ably?.connection.state === "connected";
   if (!isConnected) {
     const clientOptions = {
-      authUrl: `/api/CreateTokenRequest/${clientId}`,
-      clientId: clientId,
+      authUrl: `/api/CreateTokenRequest/${user.id}`,
+      clientId: user.id,
       echoMessages: false,
     };
     ably = new Ably.Realtime.Promise(clientOptions);
-    ably.connection.on("connected", () => {
+    ably.connection.on("connected", async () => {
       console.log("Connected 🎉");
       select("#connectButton").elt.innerText = "Disconnect";
-      channel = ably.channels.get(channelName);
-      channel.presence.subscribe('enter', member => {
-        addUser(member.clientId);
+      channel = await ably.channels.get(
+        channelName,
+        {
+          params: { rewind: '2m' },
+        });
+      channel.presence.subscribe('enter', (member) => {
+        addUser(member.clientId, member.data.color);
       });
-      channel.presence.enter();
-      channel.subscribe(coordinatesMessage, (message) => {
+      channel.presence.subscribe('leave', (member) => {
+        removeUser(member.clientId);
+      });
+      channel.presence.enter({
+        color: user.strokeColor,
+      });
+      channel.subscribe(hoverPosition, (message) => {
         setUserPosition(message.clientId, message.data.x, message.data.y);
       });
-      channel.subscribe(clickMessage, (message) => {
+      channel.subscribe(clickPosition, (message) => {
         clickCell(message.data.x, message.data.y);
       });
     });
@@ -38,10 +46,4 @@ async function connectAbly() {
   } else {
     ably.close();
   }
-}
-
-function getRandomInt() {
-  const min = Math.ceil(1000);
-  const max = Math.floor(9999);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }

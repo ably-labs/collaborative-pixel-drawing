@@ -8,20 +8,21 @@
     <link rel="icon" href="https://static.ably.dev/motif-black.svg?collaborative-pixelart-drawing" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:title" content="Collaborative experiences with serverless WebSockets" />
-    <meta property="og:description" content="An online collaborative pixelart drawing canvas powered by serverless WebSockets." />
+    <meta property="og:description"
+        content="An online collaborative pixelart drawing canvas powered by serverless WebSockets." />
     <meta property="og:url" content="https://pixeldraw.ably.dev" />
     <meta property="og:image" content="" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ablyrealtime" />
     <meta name="twitter:title" content="Collaborative experiences with serverless WebSockets" />
-    <meta name="twitter:description" content="An online collaborative pixelart drawing canvas powered by serverless WebSockets." />
+    <meta name="twitter:description"
+        content="An online collaborative pixelart drawing canvas powered by serverless WebSockets." />
     <meta name="twitter:image" content="" />
     <style>
         body,
         button,
         p,
-        h1
-        {
+        h1 {
             margin: 0.3em;
             font-family: 'Courier New', Courier, monospace;
             font-size: normal;
@@ -36,7 +37,7 @@
         integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ably/1.2.22/ably.min.js"
-        integrity="sha512-rxPU7JKHvFzGTw+KUXujvhHl131fuhhrH/PJ0xNxLBmczOhyw8e8byCVM8rBXn/aWwP5Bsn7xIM4H/TahqZNzw=="
+        integrity="sha512-ldCPQyVAsAtz6sQMcWzgMWPrCiD6RViwDYuiLZMxhdDvjFM+VQZ+Zn9PmwYfKmjgiKVS41gt9jGwyyfL08BRig=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="Cell.js"></script>
     <script src="User.js"></script>
@@ -48,10 +49,13 @@
     <main>
         <h1>Collaborative pixelart drawing</h1>
         <ol>
-            <li><button aria-label="Connect" id="connectButton" onclick="connectAbly()">Connect</button> to join a live collaborative drawing.</li>
+            <li>Connect to join a live collaborative drawing.</li>
             <li>Invite others to join this site.</li>
             <li>Start clicking in the grid.</li>
         </ol>
+        <p>
+            <button aria-label="Connect" id="connectButton" onclick="start()">Connect</button> Users connected: <span id="users"></span>
+        </p>
     </main>
 </body>
 
