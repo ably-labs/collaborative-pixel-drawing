@@ -28,6 +28,13 @@ async function connectAbly(user) {
       channel.presence.subscribe('leave', (member) => {
         removeUser(member.clientId);
       });
+      await channel.presence.get((err, members) => {
+        members.forEach(member => {
+          if (member.data) {
+            addUser(member.clientId, member.data.color);
+          }
+        });
+      });
       channel.presence.enter({
         color: user.strokeColor,
       });

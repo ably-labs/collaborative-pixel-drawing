@@ -44,10 +44,10 @@ function initGrid() {
 }
 
 function draw() {
-    cells.forEach((cell) => {
+    cells.forEach(cell => {
         cell.draw();
     });
-    users.forEach((user) => {
+    users.forEach(user => {
         if (user.id === clientId) {
             user.update();
         }

@@ -36,6 +36,11 @@ class User {
     draw() {
         const x = this.col * sizeX;
         const y = this.row * sizeY;
+        noStroke();
+        fill(color(this.strokeColor));
+        textAlign(CENTER);
+        textSize(10);
+        text(this.id, x+sizeX/2, y+sizeY/2);
         stroke(color(this.strokeColor));
         noFill();
         rect(x, y, sizeX, sizeY);
