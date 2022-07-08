@@ -18,25 +18,7 @@
     <meta name="twitter:description"
         content="An online collaborative pixelart drawing canvas powered by serverless WebSockets." />
     <meta name="twitter:image" content="" />
-    <style>
-        body,
-        button,
-        select,
-        p,
-        h1 {
-            margin: 0.3em;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        p, select, button {
-            font-size: large;
-        }
-
-        canvas {
-            display: block;
-            margin: 0.3em;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"
         integrity="sha512-NxocnqsXP3zm0Xb42zqVMvjQIktKEpTIbCXXyhBPxqGZHqhcOXHs4pXI/GoZ8lE+2NJONRifuBpi9DxC58L0Lw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -61,14 +43,13 @@
             <button aria-label="Connect" id="connectButton" onclick="start()">Connect</button> Users connected: <span id="users"></span>
         </p>
         <div id="p5canvas"></div>
-        <p>
-            Made with ❤ by
-            <a href="https://twitter.com/marcduiker" target="_blank">@marcduiker</a>. 
-            Powered by <a href="https://www.ably.com" target="_blank" >ably.com</a> 🚀.
-            Look at the source on <a href="https://github.com/ably-labs/collaborative-pixel-drawing" target="_blank">GitHub</a> 👩‍💻.
-        </p>
     </main>
-    
+    <footer>
+        Made with ❤ by
+        <a href="https://twitter.com/marcduiker" target="_blank">@marcduiker</a>. 
+        Powered by <a href="https://www.ably.com" target="_blank" >ably.com</a> 🚀.
+        Look at the source on <a href="https://github.com/ably-labs/collaborative-pixel-drawing" target="_blank">GitHub</a> 👩‍💻.
+    </footer>
 </body>
 
 </html>

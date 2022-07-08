@@ -1,0 +1,17 @@
+body, button, select, p, h1, footer {
+    margin: 0.3em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+p, select, button {
+    font-size: large;
+}
+
+footer {
+    font-size: normal;
+}
+
+canvas {
+    display: block;
+    margin: 0.3em;
+}
