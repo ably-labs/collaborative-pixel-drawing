@@ -3,6 +3,7 @@ let channel;
 const channelName = "pixel-art-drawing";
 const hoverPositionMessage = "hover"; // x, y positions
 const clickPositionMessage = "click"; // x, y positions
+const changeColorPaletteMessage = "color-palette"; // paletteId , colors
 const resetMessage = "reset";
 
 async function connectAbly(user) {
@@ -11,7 +12,6 @@ async function connectAbly(user) {
   if (!isConnected) {
     const clientOptions = {
       authUrl: `/api/CreateTokenRequest/${user.id}`,
-      clientId: user.id,
       echoMessages: false,
     };
     ably = new Ably.Realtime.Promise(clientOptions);
@@ -44,6 +44,9 @@ async function connectAbly(user) {
       });
       channel.subscribe(clickPositionMessage, (message) => {
         clickCell(message.data.x, message.data.y);
+      });
+      channel.subscribe(changeColorPaletteMessage, (message) => {
+        handleChangeColorPalette(message.data.paletteId, message.data.colors);
       });
       channel.subscribe(resetMessage, () => {
         resetGrid();

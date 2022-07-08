@@ -1,4 +1,4 @@
-let strokeColor = 50;
+let strokeColor = 40;
 
 class Cell {
     constructor(col, row, x, y, c) {
@@ -11,21 +11,15 @@ class Cell {
 
     draw() {
         stroke(strokeColor);
-        fill(color(this.c));
+        fill(color(colorArray[this.c]));
         rect(this.x, this.y, sizeX, sizeY);
     }
 
-    drawBorder() {
-        this.c = colorArray[0];
-    }
-
     nextColor() {
-        let colorIndex = colorArray.findIndex(c => c === this.c);
-        if (colorIndex < colorArray.length - 1) {
-            colorIndex++;
+        if (this.c < colorArray.length - 1) {
+            this.c++;
         } else {
-            colorIndex = 0;
+            this.c = 0;
         }
-        this.c = colorArray[colorIndex];
     }
 }
