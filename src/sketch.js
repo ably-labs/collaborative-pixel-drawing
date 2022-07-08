@@ -103,11 +103,11 @@ function clickCell(x, y) {
 }
 
 function saveGridAsPng() {
-    strokeColor = 0;
+    strokeColor = color(colorArray.length - 1);
     draw();
     const date = new Date().toISOString().split("T")[0];
     saveCanvas(`${date}-pixel-drawing`, "png");
-    strokeColor = 50;
+    strokeColor = 40;
 }
 
 function clearGrid() {
