@@ -3,15 +3,35 @@ body, button, select, p, h1, footer {
     font-family: 'Courier New', Courier, monospace;
 }
 
+main {
+    display: grid;
+    justify-content: center;
+}
+
 p, select, button {
     font-size: large;
 }
 
+#p5canvas {
+    display: grid;
+    justify-content: center;
+}
+
+.controls {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
 footer {
+    display: grid;
+    justify-content: center;
+}
+
+footer > p {
     font-size: smaller;
 }
 
 canvas {
-    display: block;
     margin: 0.3em;
 }

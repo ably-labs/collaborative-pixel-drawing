@@ -7,8 +7,6 @@ let sizeY;
 let cells = [];
 let users = [];
 let clientId;
-let colorSelect;
-
 let colorArray = ["#fff", "#55ffff", "#ff55ff", "#000"];
 
 function setup() {
@@ -17,19 +15,6 @@ function setup() {
     sizeY = resoY / cols;
     const canvas = createCanvas(resoX, resoY);
     canvas.parent("p5canvas");
-    colorSelect = createSelect();
-    colorSelect.option("CGA0");
-    colorSelect.option("CGA1");
-    colorSelect.option("GAMEBOY")
-    colorSelect.selected("CGA1");
-    colorSelect.changed(changeColorPalette);
-    colorSelect.parent(p5canvas);
-    const saveButton = createButton("Save as PNG");
-    saveButton.parent("p5canvas");
-    saveButton.mousePressed(saveGridAsPng);
-    const resetButton = createButton("Reset");
-    resetButton.mousePressed(clearGrid);
-    resetButton.parent("p5canvas");
     resetGrid();
 }
 
@@ -59,7 +44,8 @@ function draw() {
 }
 
 async function changeColorPalette() {
-    const paletteId =  colorSelect.value();
+    const paletteId =  select("#paletteSelect").elt.value;
+    // const paletteId =  colorSelect.value();
     const response = await fetch(`/api/ChangeColorPalette/${paletteId}?channel=${channelName}`)
     if (response.ok) {
         const colors = await response.json();
@@ -68,7 +54,7 @@ async function changeColorPalette() {
 }
 
 function handleChangeColorPalette(paletteId, colors) {
-    colorSelect.selected(paletteId);
+    select("#paletteSelect").elt.value = paletteId;
     colorArray = colors;
 }
 
@@ -102,7 +88,7 @@ function clickCell(x, y) {
     }
 }
 
-function saveGridAsPng() {
+function exportAsPng() {
     strokeColor = color(colorArray.length - 1);
     draw();
     const date = new Date().toISOString().split("T")[0];
@@ -110,7 +96,7 @@ function saveGridAsPng() {
     strokeColor = 40;
 }
 
-function clearGrid() {
+function reset() {
     resetGrid();
     channel?.publish(resetMessage, {});
 }
