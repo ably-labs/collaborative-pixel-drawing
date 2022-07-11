@@ -56,8 +56,8 @@ async function connectAbly(user) {
       console.log("Disconnected 😿");
       select("#connectButton").elt.innerText = "Connect";
     });
-    
   } else {
     ably.close();
+    disconnectUser();
   }
 }

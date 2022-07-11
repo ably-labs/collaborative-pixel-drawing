@@ -20,6 +20,7 @@ function setup() {
 
 function start() {
     clientId = getRandomInt().toString();
+    select("#clientId").elt.innerText = `| You: ${clientId}`;
     const userColor = color(
         random(70, 255),
         random(70, 255),
@@ -108,6 +109,12 @@ function addUser(id, color) {
     }
 
     select("#users").elt.innerText = users.length;
+}
+
+function disconnectUser() {
+    users = [];
+    select("#users").elt.innerText = "";
+    select("#clientId").elt.innerText = "";
 }
 
 function removeUser(id) {
