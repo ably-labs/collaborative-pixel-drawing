@@ -1,25 +1,21 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using IO.Ably;
+using Microsoft.Azure.WebJobs.Extensions.WebPubSub;
+using Microsoft.Azure.WebPubSub.Common;
 
 namespace AblyLabs.PubSub
 {
     public class ChangeColorPalette
     {
-        private IRestClient _ablyClient;
-
-        public ChangeColorPalette(IRestClient ablyClient)
-        {
-            _ablyClient = ablyClient;
-        }
-
         [FunctionName(nameof(ChangeColorPalette))]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ChangeColorPalette/{paletteId?}")] HttpRequestMessage req,
+            [WebPubSub(Hub = "{query.hubName}")] IAsyncCollector<WebPubSubAction> actions,
             string? paletteId,
             ILogger log)
         {
@@ -42,16 +38,15 @@ namespace AblyLabs.PubSub
                     colors = new [] {"#fff", "#55ffff", "#ff5555", "#000"};
                     break;
             }
-            var channel = HttpUtility.ParseQueryString(req.RequestUri.Query)["channel"];
-            if (channel != null)
-            {
-                await _ablyClient.Channels.Get(channel).PublishAsync(
-                    "color-palette",
-                    new {
-                        paletteId = paletteId,
-                        colors = colors,
-                    });
-            }
+
+            var data = BinaryData.FromObjectAsJson(
+                new {
+                    type = "changeColorPaletteMessage",
+                    paletteId = paletteId,
+                    colors = colors,
+                });
+            var action = WebPubSubAction.CreateSendToAllAction(data, WebPubSubDataType.Json);
+            await actions.AddAsync(action);
 
             return new OkObjectResult(colors);
         }

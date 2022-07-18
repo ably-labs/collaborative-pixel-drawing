@@ -29,7 +29,7 @@ function start() {
     console.log(`${clientId}-${userColor}`);
     const user = new User(clientId, userColor);
     users.push(user);
-    connectAbly(user);
+    connectAzureWebPubSub(user);
 }
 
 function draw() {
@@ -46,8 +46,7 @@ function draw() {
 
 async function changeColorPalette() {
     const paletteId =  select("#paletteSelect").elt.value;
-    // const paletteId =  colorSelect.value();
-    const response = await fetch(`/api/ChangeColorPalette/${paletteId}?channel=${channelName}`)
+    const response = await fetch(`/api/ChangeColorPalette/${paletteId}?hubName=${hubName}`)
     if (response.ok) {
         const colors = await response.json();
         handleChangeColorPalette(paletteId, colors);
@@ -73,10 +72,11 @@ function resetGrid() {
 async function mouseClicked() {
     if (mouseX >= 0 && mouseX <= resoX && mouseY >= 0 && mouseY <= resoY) {
         clickCell(mouseX, mouseY);
-        await channel?.publish(clickPositionMessage, {
+        webSocket?.send(JSON.stringify({
+            type: clickPositionMessage,
             x: mouseX,
             y: mouseY,
-        });
+        }));
     }
 }
 
@@ -99,7 +99,9 @@ function exportAsPng() {
 
 function reset() {
     resetGrid();
-    channel?.publish(resetMessage, {});
+    webSocket?.send(JSON.stringify({
+        type: resetMessage
+    }));
 }
 
 function addUser(id, color) {
