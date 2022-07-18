@@ -22,7 +22,7 @@ async function connectAzureWebPubSub(user) {
       select("#connectButton").elt.innerText = "Connect";
     };
     webSocket.onmessage = event => {
-      switch (event.data.type) {
+      switch (event.data.event) {
         case hoverPositionMessage:
           setUserPosition(event.data.clientId, event.data.x, event.data.y);
           break;

@@ -73,9 +73,13 @@ async function mouseClicked() {
     if (mouseX >= 0 && mouseX <= resoX && mouseY >= 0 && mouseY <= resoY) {
         clickCell(mouseX, mouseY);
         webSocket?.send(JSON.stringify({
-            type: clickPositionMessage,
-            x: mouseX,
-            y: mouseY,
+            type: "event",
+            event: clickPositionMessage,
+            dataType: "json",
+            data: {
+                x: mouseX,
+                y: mouseY,
+            }
         }));
     }
 }
@@ -100,7 +104,8 @@ function exportAsPng() {
 function reset() {
     resetGrid();
     webSocket?.send(JSON.stringify({
-        type: resetMessage
+        type: "event",
+        event: resetMessage
     }));
 }
 

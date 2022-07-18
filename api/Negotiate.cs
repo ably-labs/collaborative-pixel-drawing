@@ -11,7 +11,7 @@ namespace AblyLabs.PubSub
         [FunctionName(nameof(Negotiate))]
         public WebPubSubConnection Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestMessage req,
-            [WebPubSubConnection(Hub = "PixelArtDrawing",  UserId = "{Query.clientId}")] WebPubSubConnection connection,
+            [WebPubSubConnection(Hub = "PixelArtDrawing",  UserId = "{query.clientId}")] WebPubSubConnection connection,
             ILogger log)
         {
             return connection;
