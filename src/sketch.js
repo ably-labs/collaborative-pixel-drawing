@@ -74,7 +74,7 @@ async function mouseClicked() {
         clickCell(mouseX, mouseY);
         webSocket?.send(JSON.stringify({
             type: "event",
-            event: clickPositionMessage,
+            messageType: clickPositionMessage,
             dataType: "json",
             data: {
                 x: mouseX,
@@ -105,7 +105,8 @@ function reset() {
     resetGrid();
     webSocket?.send(JSON.stringify({
         type: "event",
-        event: resetMessage
+        messageType: resetMessage,
+        data: {}
     }));
 }
 

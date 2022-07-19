@@ -6,9 +6,9 @@ using Microsoft.Azure.WebJobs.Extensions.WebPubSub;
 
 namespace AblyLabs.PubSub
 {
-    public class Negotiate
+    public class CreateTokenRequest
     {
-        [FunctionName(nameof(Negotiate))]
+        [FunctionName(nameof(CreateTokenRequest))]
         public WebPubSubConnection Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestMessage req,
             [WebPubSubConnection(Hub = "PixelArtDrawing",  UserId = "{query.clientId}")] WebPubSubConnection connection,

@@ -41,7 +41,7 @@ namespace AblyLabs.PubSub
 
             var data = BinaryData.FromObjectAsJson(
                 new {
-                    type = "changeColorPaletteMessage",
+                    messageType = "changeColorPaletteMessage",
                     paletteId = paletteId,
                     colors = colors,
                 });

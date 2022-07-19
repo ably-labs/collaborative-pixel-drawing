@@ -1,5 +1,6 @@
 let webSocket;
-const hubName = "PixelArtDrawing";
+const hubName = "pixelartdrawing";
+const groupName = "pixelartdrawing";
 const hoverPositionMessage = "hover"; // x, y positions
 const clickPositionMessage = "click"; // x, y positions
 const changeColorPaletteMessage = "color-palette"; // paletteId , colors
@@ -10,9 +11,9 @@ async function connectAzureWebPubSub(user) {
   
   const isConnected = webSocket?.readyState === WebSocket.OPEN;
   if (!isConnected) {
-    let negotiateResponse = await fetch(`/api/Negotiate?clientId=${user.id}`);
-    let negotiateUrl = await negotiateResponse.json();
-    webSocket = new WebSocket(negotiateUrl.url,'json.webpubsub.azure.v1');
+    let tokenResponse = await fetch(`/api/CreateTokenRequest?clientId=${user.id}`);
+    let urlData = await tokenResponse.json();
+    webSocket = new WebSocket(urlData.url,'json.webpubsub.azure.v1');
     webSocket.onopen = () => {
       console.log("Connected 🎉");
       select("#connectButton").elt.innerText = "Disconnect";
@@ -22,15 +23,16 @@ async function connectAzureWebPubSub(user) {
       select("#connectButton").elt.innerText = "Connect";
     };
     webSocket.onmessage = event => {
-      switch (event.data.event) {
+      const data = JSON.parse(event.data);
+      switch (data.messageType) {
         case hoverPositionMessage:
-          setUserPosition(event.data.clientId, event.data.x, event.data.y);
+          setUserPosition(data.clientId, data.x, data.y);
           break;
         case clickPositionMessage:
-          clickCell(event.data.x, event.data.y);
+          clickCell(data.x, data.y);
             break;
         case changeColorPaletteMessage:
-          handleChangeColorPalette(event.data.paletteId, event.data.colors);
+          handleChangeColorPalette(data.paletteId, data.colors);
           break;
         case resetMessage:
           resetGrid();
