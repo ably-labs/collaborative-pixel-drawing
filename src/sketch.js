@@ -15,7 +15,7 @@ function setup() {
     sizeY = resoY / cols;
     const canvas = createCanvas(resoX, resoY);
     canvas.parent("p5canvas");
-    resetGrid();
+    cells = defaultCells;
 }
 
 function start() {
@@ -59,15 +59,24 @@ function handleChangeColorPalette(paletteId, colors) {
     colorArray = colors;
 }
 
+function keyTyped() {
+    if (key === "r") {
+        reset();
+    }
+}
+
 function resetGrid() {
     cells = [];
     for (let col = 0; col < cols; col++) {
         for (let row = 0; row < rows; row++) {
-            const x = sizeX * col;
-            const y = sizeY * row;
-            cells.push(new Cell(col, row, x, y, colorArray.length - 1));
+            cells.push(new Cell(col, row, colorArray.length - 1));
         }
     }
+}
+
+function reset() {
+    resetGrid();
+    channel?.publish(resetMessage, {});
 }
 
 async function mouseClicked() {
@@ -95,11 +104,6 @@ function exportAsPng() {
     const date = new Date().toISOString().split("T")[0];
     saveCanvas(`${date}-pixel-drawing`, "png");
     strokeColor = 40;
-}
-
-function reset() {
-    resetGrid();
-    channel?.publish(resetMessage, {});
 }
 
 function addUser(id, color) {

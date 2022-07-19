@@ -1,18 +1,16 @@
 let strokeColor = 40;
 
 class Cell {
-    constructor(col, row, x, y, c) {
+    constructor(col, row, c) {
         this.col = col;
         this.row = row;
-        this.x = x;
-        this.y = y;
         this.c = c;
     }
 
     draw() {
         stroke(strokeColor);
         fill(color(colorArray[this.c]));
-        rect(this.x, this.y, sizeX, sizeY);
+        rect(this.col * sizeX, this.row * sizeY, sizeX, sizeY);
     }
 
     nextColor() {
