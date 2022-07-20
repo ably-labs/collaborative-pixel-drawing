@@ -68,6 +68,8 @@ You require the following dependencies to run the solution locally:
 4. Copy/paste the Ably API key in the `ABLY_APIKEY` field in the `local.settings.json` file.
 5. Run `swa start` in the root folder.
 
+The local Static Web App should be available at `http://localhost:4280`.
+
 ## Contributing
 
 Want to help contributing to this project? Have a look at our [contributing guide](CONTRIBUTING.md)!
