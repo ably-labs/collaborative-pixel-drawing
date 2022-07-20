@@ -72,37 +72,11 @@ async function connectAzureWebPubSub(user) {
           default:
             break;
         }
-      } else if (message.type === "system") {
-        // users who join?
-        let abc = message;
       }
     };
     webSocket.onerror = (event) => {
       this.error = `WebSocket error ${event.message}`;
     };
-
-    // ably.connection.on("connected", async () => {
-    //   channel = await ably.channels.get(
-    //     hubName,
-    //     {
-    //       params: { rewind: '2m' },
-    //     });
-    //   channel.presence.subscribe('enter', (member) => {
-    //     addUser(member.clientId, member.data.color);
-    //   });
-    //   channel.presence.subscribe('leave', (member) => {
-    //     removeUser(member.clientId);
-    //   });
-    //   await channel.presence.get((err, members) => {
-    //     members.forEach(member => {
-    //       if (member.data) {
-    //         addUser(member.clientId, member.data.color);
-    //       }
-    //     });
-    //   });
-    //   channel.presence.enter({
-    //     color: user.strokeColor,
-    //   });
   } else {
     webSocket.close();
     disconnectUser();
