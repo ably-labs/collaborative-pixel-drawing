@@ -75,6 +75,7 @@ async function mouseClicked() {
         webSocket?.send(JSON.stringify({
             type: "sendToGroup",
             group: groupName,
+            noEcho: true,
             data: {
                 messageType: clickPositionMessage,
                 x: mouseX,
@@ -106,6 +107,7 @@ function reset() {
     webSocket?.send(JSON.stringify({
         type: "sendToGroup",
         group: groupName,
+        noEcho: true,
         data: {
             messageType: resetMessage
         }

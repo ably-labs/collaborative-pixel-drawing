@@ -2,54 +2,82 @@ let webSocket;
 const hubName = "pixelarthub";
 const groupName = "pixelartgroup";
 const hoverPositionMessage = "hover"; // x, y positions
-const clickPositionMessage = "click"; // x, y positions
+const clickPositionMessage = "click"; // clientId, x, y positions
 const changeColorPaletteMessage = "color-palette"; // paletteId , colors
+const joinedMessage = "joined"; // clientId
 const resetMessage = "reset";
-let ackId = 0;
 
 async function connectAzureWebPubSub(user) {
-  
   const isConnected = webSocket?.readyState === WebSocket.OPEN;
   if (!isConnected) {
-    let tokenResponse = await fetch(`/api/CreateTokenRequest/${hubName}/${groupName}/${user.id}`);
+    let tokenResponse = await fetch(
+      `/api/CreateTokenRequest/${hubName}/${groupName}/${user.id}`
+    );
     let clientUrl = await tokenResponse.text();
-    webSocket = new WebSocket(clientUrl,"json.webpubsub.azure.v1");
+    webSocket = new WebSocket(clientUrl, "json.webpubsub.azure.v1");
     webSocket.onopen = () => {
       console.log("Connected 🎉");
       select("#connectButton").elt.innerText = "Disconnect";
-      webSocket.send(JSON.stringify({
-        type: "joinGroup",
-        group: groupName,
-    })
-
+      webSocket.send(
+        JSON.stringify({
+          type: "joinGroup",
+          group: groupName,
+        })
+      );
+      webSocket.send(
+        JSON.stringify({
+          type: "sendToGroup",
+          group: groupName,
+          noEcho: true,
+          data: {
+            messageType: joinedMessage,
+            clientId: user.id,
+            color: user.strokeColor,
+          }
+        })
       );
     };
-    webSocket.onclose = event => {
+    webSocket.onclose = (event) => {
       console.log(`Disconnected 😿, code=${event.code}`);
       select("#connectButton").elt.innerText = "Connect";
     };
-    webSocket.onmessage = event => {
-      const data = JSON.parse(event.data);
-      switch (data.messageType) {
-        case hoverPositionMessage:
-          setUserPosition(data.clientId, data.x, data.y);
-          break;
-        case clickPositionMessage:
-          clickCell(data.x, data.y);
+    webSocket.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      if (message.type === "message") {
+        switch (message.data.messageType) {
+          case hoverPositionMessage:
+            setUserPosition(
+              message.data.clientId,
+              message.data.x,
+              message.data.y
+            );
             break;
-        case changeColorPaletteMessage:
-          handleChangeColorPalette(data.paletteId, data.colors);
-          break;
-        case resetMessage:
-          resetGrid();
-          break;
-        default:
-          break;
+          case clickPositionMessage:
+            clickCell(message.data.x, message.data.y);
+            break;
+          case changeColorPaletteMessage:
+            handleChangeColorPalette(
+              message.data.paletteId,
+              message.data.colors
+            );
+            break;
+          case resetMessage:
+            resetGrid();
+            break;
+          case joinedMessage:
+            addUser(message.data.clientId, message.data.color);
+            break;
+          default:
+            break;
+        }
+      } else if (message.type === "system") {
+        // users who join?
+        let abc = message;
       }
     };
-    webSocket.onerror = event => {
-      this.error = `WebSocket error ${event.message}`
-    }
+    webSocket.onerror = (event) => {
+      this.error = `WebSocket error ${event.message}`;
+    };
 
     // ably.connection.on("connected", async () => {
     //   channel = await ably.channels.get(
@@ -73,7 +101,6 @@ async function connectAzureWebPubSub(user) {
     //   channel.presence.enter({
     //     color: user.strokeColor,
     //   });
-  
   } else {
     webSocket.close();
     disconnectUser();

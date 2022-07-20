@@ -20,8 +20,9 @@ class User {
             webSocket?.send(JSON.stringify({
                 type: "sendToGroup",
                 group: groupName,
+                noEcho: true,
                 data: {
-                    event: hoverPositionMessage,
+                    messageType: hoverPositionMessage,
                     clientId: clientId,
                     x: this.x,
                     y: this.y,
