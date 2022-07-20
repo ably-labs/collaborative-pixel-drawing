@@ -20,7 +20,7 @@ function setup() {
 
 function start() {
     clientId = getRandomInt().toString();
-    select("#clientId").elt.innerText = `| You: ${clientId}`;
+    document.getElementById("clientId").innerText = `| You: ${clientId}`;
     const userColor = color(
         random(70, 255),
         random(70, 255),
@@ -33,10 +33,10 @@ function start() {
 }
 
 function draw() {
-    cells.forEach(cell => {
+    cells.forEach((cell) => {
         cell.draw();
     });
-    users.forEach(user => {
+    users.forEach((user) => {
         if (user.id === clientId) {
             user.update();
         }
@@ -45,9 +45,10 @@ function draw() {
 }
 
 async function changeColorPalette() {
-    const paletteId =  select("#paletteSelect").elt.value;
-    // const paletteId =  colorSelect.value();
-    const response = await fetch(`/api/ChangeColorPalette/${paletteId}?channel=${channelName}`)
+    const paletteId = document.getElementById("paletteSelect").value;
+    const response = await fetch(
+        `/api/ChangeColorPalette/${paletteId}?channel=${channelName}`
+    );
     if (response.ok) {
         const colors = await response.json();
         handleChangeColorPalette(paletteId, colors);
@@ -55,7 +56,7 @@ async function changeColorPalette() {
 }
 
 function handleChangeColorPalette(paletteId, colors) {
-    select("#paletteSelect").elt.value = paletteId;
+    document.getElementById("paletteSelect").value = paletteId;
     colorArray = colors;
 }
 
@@ -65,6 +66,11 @@ function keyTyped() {
     }
 }
 
+function reset() {
+    resetGrid();
+    channel?.publish(resetMessage, {});
+}
+
 function resetGrid() {
     cells = [];
     for (let col = 0; col < cols; col++) {
@@ -72,11 +78,6 @@ function resetGrid() {
             cells.push(new Cell(col, row, colorArray.length - 1));
         }
     }
-}
-
-function reset() {
-    resetGrid();
-    channel?.publish(resetMessage, {});
 }
 
 async function mouseClicked() {
@@ -98,6 +99,13 @@ function clickCell(x, y) {
     }
 }
 
+function setUserPosition(id, x, y) {
+    const user = users.find((user) => user.id === id);
+    if (user) {
+        user.setPosition(x, y);
+    }
+}
+
 function exportAsPng() {
     strokeColor = color(colorArray.length - 1);
     draw();
@@ -112,13 +120,7 @@ function addUser(id, color) {
         users.push(new User(id, color));
     }
 
-    select("#users").elt.innerText = users.length;
-}
-
-function disconnectUser() {
-    users = [];
-    select("#users").elt.innerText = "";
-    select("#clientId").elt.innerText = "";
+    document.getElementById("users").innerText = users.length;
 }
 
 function removeUser(id) {
@@ -126,14 +128,13 @@ function removeUser(id) {
         users.findIndex((user) => user.id === id),
         1
     );
-    select("#users").elt.innerText = users.length;
+    document.getElementById("users").innerText = users.length;
 }
 
-function setUserPosition(id, x, y) {
-    const user = users.find((user) => user.id === id);
-    if (user) {
-        user.setPosition(x, y);
-    }
+function disconnectUser() {
+    users = [];
+    document.getElementById("users").innerText = "";
+    document.getElementById("clientId").innerText = "";
 }
 
 function getRandomInt() {

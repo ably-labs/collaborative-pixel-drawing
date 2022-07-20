@@ -19,8 +19,8 @@ namespace AblyLabs.PubSub
 
         [FunctionName(nameof(ChangeColorPalette))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ChangeColorPalette/{paletteId?}")] HttpRequestMessage req,
-            string? paletteId,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ChangeColorPalette/{paletteId}")] HttpRequestMessage req,
+            string paletteId,
             ILogger log)
         {
             string[] colors;

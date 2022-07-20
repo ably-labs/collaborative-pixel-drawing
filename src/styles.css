@@ -18,7 +18,7 @@ p, li, select, button {
     align-items: center;
 }
 
-footer > p {
+footer > p, .controls > p {
     font-size: smaller;
 }
 

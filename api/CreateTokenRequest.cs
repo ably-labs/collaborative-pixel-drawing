@@ -1,11 +1,11 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using IO.Ably;
-using System.Net.Http;
 
 namespace AblyLabs.PubSub
 {
@@ -20,11 +20,11 @@ namespace AblyLabs.PubSub
 
         [FunctionName(nameof(CreateTokenRequest))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "CreateTokenRequest/{clientId?}")] HttpRequestMessage req,
-            string? clientId,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "CreateTokenRequest/{clientId}")] HttpRequestMessage req,
+            string clientId,
             ILogger log)
         {
-            var tokenParams = new TokenParams() { ClientId = clientId ?? Guid.NewGuid().ToString() };
+            var tokenParams = new TokenParams() { ClientId = clientId };
             var tokenData = await _ablyClient.Auth.RequestTokenAsync(tokenParams);
 
             return new OkObjectResult(tokenData);
