@@ -6,16 +6,16 @@
 
 ## Description
 
-This repository contains an example how to synchronize state between many client devices using serverless websockets (Ably or Azure Web PubSub). The context of the example is a collaborative drawing canvas that multiple people can use to draw pixelart.
+This repository contains an example how to synchronize state between many client devices using serverless websockets (Ably or Azure Web PubSub). The context of the example is a collaborative drawing canvas that multiple people can use at the same time to draw pixelart.
 
-Two implementations:
+This repository contains two implementations of the same project:
 
-- The `main` branch of this repo contains the implementation using [Ably](https://ably.com/).
-- The `azure-web-pubsub` branch contains the implementation using [Azure Web PubSub](https://docs.microsoft.com/azure/azure-web-pubsub/overview).
+- The [`main` branch](https://github.com/ably-labs/collaborative-pixel-drawing) of this repo contains the implementation using Ably.
+- The [`azure-web-pubsub` branch](https://github.com/ably-labs/collaborative-pixel-drawing/tree/azure-web-pubsub) contains the implementation using Azure Web PubSub.
 
 ## Tech stack
 
-The project uses the following components:
+This project uses the following components:
 
 - [p5js](https://p5js.org/); A creative coding library, used for the drawing canvas.
 - [Ably](https://ably.com/); A realtime messaging platform, used as the serverless websockets component.
@@ -45,7 +45,7 @@ The `src` folder contains the front-end files which are based on vanilla javascr
 The `api` folder contains a .NET 6 based Azure Function App with the following functions:
 
 - `ChangeColorPalette`; returns a color palette based on the paletteId that is provided.
-- `CreateTokenRequest`; provides an authentication token and is triggered when a connection to Ably is made via the front-end.
+- `CreateTokenRequest`; provides an authentication token and is triggered when a connection to Ably or Azure WebPubSub is made via the front-end.
 
 ## Building & running locally
 
@@ -68,17 +68,11 @@ You require the following dependencies to run the solution locally:
 4. Copy/paste the Ably API key in the `ABLY_APIKEY` field in the `local.settings.json` file.
 5. Run `swa start` in the root folder.
 
-## Deploying to the cloud
-
-// Add step by step instructions for deployment. Refer to the GitHub workflow where possible.
-
 ## Contributing
 
 Want to help contributing to this project? Have a look at our [contributing guide](CONTRIBUTING.md)!
 
 ## More info
-
-// Add links to related blog, video, personal twitter handle.
 
 - [Join our Discord server](https://discord.gg/q89gDHZcBK)
 - [Follow us on Twitter](https://twitter.com/ablyrealtime)
