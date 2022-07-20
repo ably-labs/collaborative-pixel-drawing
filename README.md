@@ -57,7 +57,7 @@ You require the following dependencies to run the solution locally:
 - [Node 16](https://nodejs.org/en/). The JavaScript runtime required to install Azure Static WebApps CLI.
 - [Azure Static Web Apps CLI](https://github.com/Azure/static-web-apps-cli). This is the command line interface to develop and deploy Azure Static Web Apps. Install this tool globally by running this command in the terminal: `npm install -g @azure/static-web-apps-cli`.
 - [Azure Functions Core Tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash). This is part of the Azure Functions extensions for VSCode that should be recommended for installation when this repo is opened in VSCode.
-- [Sign up]((https://ably.com/signup)) for a free Ably Account, [create a new app, and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys).
+- [Sign up](https://ably.com/signup) for a free Ably Account, [create a new app, and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys).
 
 
 ### Building the project
