@@ -40,12 +40,12 @@ flowchart TD
   F --HTTP--> Ably
 ```
 
-The `src` folder contains the front-end files which are based on vanilla javascript and [p5js](https://p5js.org/).
+The `src` folder contains the front-end files which are based on vanilla JavaScript and [p5js](https://p5js.org/).
 
 The `api` folder contains a .NET 6 based Azure Function App with the following functions:
 
 - `ChangeColorPalette`; returns a color palette based on the paletteId that is provided.
-- `CreateTokenRequest`; provides an authentication token and is triggered when a connection to Ably or Azure WebPubSub is made via the front-end.
+- `CreateTokenRequest`; provides an authentication token and is triggered when a connection to Ably is made via the front-end.
 
 ## Building & running locally
 
@@ -63,10 +63,9 @@ You require the following dependencies to run the solution locally:
 ### Building the project
 
 1. Clone or fork this repo.
-2. Run `npm install` in the root folder.
-3. Rename the `api\local.settings.json.example` file to `api\local.settings.json`.
-4. Copy/paste the Ably API key in the `ABLY_APIKEY` field in the `local.settings.json` file.
-5. Run `swa start` in the root folder.
+2. Rename the `api\local.settings.json.example` file to `api\local.settings.json`.
+3. Copy/paste the Ably API key in the `ABLY_APIKEY` field in the `local.settings.json` file.
+4. Run `swa start` in the root folder.
 
 The local Static Web App should be available at `http://localhost:4280`.
 
