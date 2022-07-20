@@ -1,11 +1,11 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Azure.Messaging.WebPubSub;
-using System.Net;
 
 namespace AblyLabs.PubSub
 {

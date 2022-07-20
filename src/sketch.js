@@ -15,12 +15,12 @@ function setup() {
     sizeY = resoY / cols;
     const canvas = createCanvas(resoX, resoY);
     canvas.parent("p5canvas");
-    resetGrid();
+    cells = defaultCells;
 }
 
 function start() {
     clientId = getRandomInt().toString();
-    select("#clientId").elt.innerText = `| You: ${clientId}`;
+    document.getElementById("clientId").innerText = `| You: ${clientId}`;
     const userColor = color(
         random(70, 255),
         random(70, 255),
@@ -33,10 +33,10 @@ function start() {
 }
 
 function draw() {
-    cells.forEach(cell => {
+    cells.forEach((cell) => {
         cell.draw();
     });
-    users.forEach(user => {
+    users.forEach((user) => {
         if (user.id === clientId) {
             user.update();
         }
@@ -45,8 +45,10 @@ function draw() {
 }
 
 async function changeColorPalette() {
-    const paletteId =  select("#paletteSelect").elt.value;
-    const response = await fetch(`/api/ChangeColorPalette/${groupName}/${paletteId}?hubName=${hubName}`)
+    const paletteId =  document.getElementById("paletteSelect").value;
+    const response = await fetch(
+        `/api/ChangeColorPalette/${groupName}/${paletteId}?hubName=${hubName}`
+    );
     if (response.ok) {
         const colors = await response.json();
         handleChangeColorPalette(paletteId, colors);
@@ -54,17 +56,33 @@ async function changeColorPalette() {
 }
 
 function handleChangeColorPalette(paletteId, colors) {
-    select("#paletteSelect").elt.value = paletteId;
+    document.getElementById("paletteSelect").value = paletteId;
     colorArray = colors;
+}
+
+function keyTyped() {
+    if (key === "r") {
+        reset();
+    }
+}
+
+function reset() {
+    resetGrid();
+    webSocket?.send(JSON.stringify({
+        type: "sendToGroup",
+        group: groupName,
+        noEcho: true,
+        data: {
+            messageType: resetMessage
+        }
+    }));
 }
 
 function resetGrid() {
     cells = [];
     for (let col = 0; col < cols; col++) {
         for (let row = 0; row < rows; row++) {
-            const x = sizeX * col;
-            const y = sizeY * row;
-            cells.push(new Cell(col, row, x, y, colorArray.length - 1));
+            cells.push(new Cell(col, row, colorArray.length - 1));
         }
     }
 }
@@ -94,49 +112,6 @@ function clickCell(x, y) {
     }
 }
 
-function exportAsPng() {
-    strokeColor = color(colorArray.length - 1);
-    draw();
-    const date = new Date().toISOString().split("T")[0];
-    saveCanvas(`${date}-pixel-drawing`, "png");
-    strokeColor = 40;
-}
-
-function reset() {
-    resetGrid();
-    webSocket?.send(JSON.stringify({
-        type: "sendToGroup",
-        group: groupName,
-        noEcho: true,
-        data: {
-            messageType: resetMessage
-        }
-    }));
-}
-
-function addUser(id, color) {
-    const user = users.find((user) => user.id === id);
-    if (user === undefined) {
-        users.push(new User(id, color));
-    }
-
-    select("#users").elt.innerText = users.length;
-}
-
-function disconnectUser() {
-    users = [];
-    select("#users").elt.innerText = "";
-    select("#clientId").elt.innerText = "";
-}
-
-function removeUser(id) {
-    users.splice(
-        users.findIndex((user) => user.id === id),
-        1
-    );
-    select("#users").elt.innerText = users.length;
-}
-
 function setUserPosition(id, c, x, y) {
     const user = users.find((user) => user.id === id);
     if (user === undefined) {
@@ -145,6 +120,37 @@ function setUserPosition(id, c, x, y) {
     } else {
         user.setPosition(x, y);
     }
+}
+
+function exportAsPng() {
+    strokeColor = color(colorArray.length - 1);
+    draw();
+    const date = new Date().toISOString().split("T")[0];
+    saveCanvas(`${date}-pixel-drawing`, "png");
+    strokeColor = 40;
+}
+
+function addUser(id, color) {
+    const user = users.find((user) => user.id === id);
+    if (user === undefined) {
+        users.push(new User(id, color));
+    }
+
+    document.getElementById("users").innerText = users.length;
+}
+
+function removeUser(id) {
+    users.splice(
+        users.findIndex((user) => user.id === id),
+        1
+    );
+    document.getElementById("users").innerText = users.length;
+}
+
+function disconnectUser() {
+    users = [];
+    document.getElementById("users").innerText = "";
+    document.getElementById("clientId").innerText = "";
 }
 
 function getRandomInt() {
