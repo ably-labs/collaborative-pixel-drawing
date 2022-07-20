@@ -24,6 +24,7 @@ class User {
                 data: {
                     messageType: hoverPositionMessage,
                     clientId: clientId,
+                    color: this.strokeColor,
                     x: this.x,
                     y: this.y,
                 }

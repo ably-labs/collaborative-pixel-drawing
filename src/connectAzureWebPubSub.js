@@ -24,6 +24,7 @@ async function connectAzureWebPubSub(user) {
           group: groupName,
         })
       );
+      addUser(user.id, user.strokeColor);
       webSocket.send(
         JSON.stringify({
           type: "sendToGroup",
@@ -48,6 +49,7 @@ async function connectAzureWebPubSub(user) {
           case hoverPositionMessage:
             setUserPosition(
               message.data.clientId,
+              message.data.color,
               message.data.x,
               message.data.y
             );

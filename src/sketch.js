@@ -46,7 +46,7 @@ function draw() {
 
 async function changeColorPalette() {
     const paletteId =  select("#paletteSelect").elt.value;
-    const response = await fetch(`/api/ChangeColorPalette/${paletteId}?hubName=${hubName}`)
+    const response = await fetch(`/api/ChangeColorPalette/${groupName}/${paletteId}?hubName=${hubName}`)
     if (response.ok) {
         const colors = await response.json();
         handleChangeColorPalette(paletteId, colors);
@@ -137,9 +137,12 @@ function removeUser(id) {
     select("#users").elt.innerText = users.length;
 }
 
-function setUserPosition(id, x, y) {
+function setUserPosition(id, c, x, y) {
     const user = users.find((user) => user.id === id);
-    if (user) {
+    if (user === undefined) {
+        addUser(id, c);
+        setUserPosition(id, c, x, y);
+    } else {
         user.setPosition(x, y);
     }
 }

@@ -14,9 +14,10 @@ namespace AblyLabs.PubSub
     {
         [FunctionName(nameof(ChangeColorPalette))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ChangeColorPalette/{paletteId?}")] HttpRequestMessage req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ChangeColorPalette/{groupId}/{paletteId}")] HttpRequestMessage req,
             [WebPubSub(Hub = "{query.hubName}")] IAsyncCollector<WebPubSubAction> actions,
-            string? paletteId,
+            string groupId,
+            string paletteId,
             ILogger log)
         {
             string[] colors;
@@ -45,7 +46,7 @@ namespace AblyLabs.PubSub
                     paletteId = paletteId,
                     colors = colors,
                 });
-            var action = WebPubSubAction.CreateSendToAllAction(data, WebPubSubDataType.Json);
+            var action = WebPubSubAction.CreateSendToGroupAction(groupId, data, WebPubSubDataType.Json);
             await actions.AddAsync(action);
 
             return new OkObjectResult(colors);
