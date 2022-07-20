@@ -1,1 +1,4 @@
-GET http://localhost:7071/api/CreateTokenRequest?clientId=123
+@hubName=pixelarthub
+@groupName=pixelartgroup
+@userId=123
+GET http://localhost:7071/api/CreateTokenRequest/{{hubName}}/{{groupName}}/{{userId}}

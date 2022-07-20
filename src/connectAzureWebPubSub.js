@@ -1,6 +1,6 @@
 let webSocket;
-const hubName = "pixelartdrawing";
-const groupName = "pixelartdrawing";
+const hubName = "pixelarthub";
+const groupName = "pixelartgroup";
 const hoverPositionMessage = "hover"; // x, y positions
 const clickPositionMessage = "click"; // x, y positions
 const changeColorPaletteMessage = "color-palette"; // paletteId , colors
@@ -11,12 +11,18 @@ async function connectAzureWebPubSub(user) {
   
   const isConnected = webSocket?.readyState === WebSocket.OPEN;
   if (!isConnected) {
-    let tokenResponse = await fetch(`/api/CreateTokenRequest?clientId=${user.id}`);
-    let urlData = await tokenResponse.json();
-    webSocket = new WebSocket(urlData.url,'json.webpubsub.azure.v1');
+    let tokenResponse = await fetch(`/api/CreateTokenRequest/${hubName}/${groupName}/${user.id}`);
+    let clientUrl = await tokenResponse.text();
+    webSocket = new WebSocket(clientUrl,"json.webpubsub.azure.v1");
     webSocket.onopen = () => {
       console.log("Connected 🎉");
       select("#connectButton").elt.innerText = "Disconnect";
+      webSocket.send(JSON.stringify({
+        type: "joinGroup",
+        group: groupName,
+    })
+
+      );
     };
     webSocket.onclose = event => {
       console.log(`Disconnected 😿, code=${event.code}`);

@@ -18,10 +18,10 @@ class User {
         this.row = floor(this.y / sizeY);
         if ((this.col >= 0 && this.col <= cols - 1) && (this.row >=0 && this.row <= rows - 1) && (this.col !== this.prevCol || this.row !== this.prevRow)) {
             webSocket?.send(JSON.stringify({
-                type: "event",
-                event: hoverPositionMessage,
-                dataType: "json",
+                type: "sendToGroup",
+                group: groupName,
                 data: {
+                    event: hoverPositionMessage,
                     clientId: clientId,
                     x: this.x,
                     y: this.y,
