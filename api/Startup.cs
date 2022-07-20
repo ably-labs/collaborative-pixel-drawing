@@ -1,8 +1,8 @@
 using System;
 using AblyLabs.PubSub;
-using IO.Ably;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using IO.Ably;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 namespace AblyLabs.PubSub
