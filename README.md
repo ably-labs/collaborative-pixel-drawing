@@ -1,7 +1,7 @@
 # Collaborative pixelart drawing
 
 
-![Screenshot](/media/screenshot.png)
+![Screenshot](/media/og.png)
 
 
 ## Description
