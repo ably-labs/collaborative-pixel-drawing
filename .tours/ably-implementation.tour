@@ -1,0 +1,36 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Ably implementation",
+  "steps": [
+    {
+      "directory": "api",
+      "description": "### API Folder\r\n\r\nThe _api_ folder contains the Function App project with two functions:\r\n\r\n- CreateTokenRequest\r\n- ChangeColorPalette"
+    },
+    {
+      "file": "api/Startup.cs",
+      "description": "### StartUp\r\n\r\nThe `StartUp` class is used to configure dependency injection.",
+      "line": 10
+    },
+    {
+      "file": "api/Startup.cs",
+      "description": "### ABLY_APIKEY\r\n\r\nThe `ABLY_APIKEY` environment variable contains the API key for Ably with _Publish_, _Subscribe_ and _Presence_ capabilities.",
+      "line": 14,
+      "selection": {
+        "start": {
+          "line": 14,
+          "character": 66
+        },
+        "end": {
+          "line": 14,
+          "character": 77
+        }
+      }
+    },
+    {
+      "file": "api/Startup.cs",
+      "description": "### AblyRest Client\r\n\r\nA new instance of the `AblyRest` client is instantiated with the API key. This instance is used when other classes in this project use the `IRestClient` interface in their constructor.",
+      "line": 15
+    }
+  ],
+  "ref": "main"
+}
