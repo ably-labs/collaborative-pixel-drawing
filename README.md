@@ -11,6 +11,8 @@ This repository contains two implementations of the same project:
 - The [`main` branch](https://github.com/ably-labs/collaborative-pixel-drawing) of this repo contains the implementation using Ably.
 - The [`azure-web-pubsub` branch](https://github.com/ably-labs/collaborative-pixel-drawing/tree/azure-web-pubsub) contains the implementation using Azure Web PubSub.
 
+> This repository also contains a [CodeTour](https://code.visualstudio.com/learn/educators/codetour) for each of these branches, which you can use to navigate the code when you're using VSCode. You will be asked to download the CodeTour extension when you open the folder.
+
 ## Tech stack
 
 This project uses the following components:
@@ -40,7 +42,6 @@ You require the following dependencies to run the solution locally:
 - [Azure Static Web Apps CLI](https://github.com/Azure/static-web-apps-cli). This is the command line interface to develop and deploy Azure Static Web Apps. Install this tool globally by running this command in the terminal: `npm install -g @azure/static-web-apps-cli`.
 - [Azure Functions Core Tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash). This is part of the Azure Functions extensions for VSCode that should be recommended for installation when this repo is opened in VSCode.
 - [Sign up](https://azure.microsoft.com/free/) for a free Azure Account, [create a new Azure Web PubSub instance, and copy the primary connection string](https://docs.microsoft.com/azure/azure-web-pubsub/howto-develop-create-instance).
-
 
 ### Building the project
 
