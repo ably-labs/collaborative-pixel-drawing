@@ -1,8 +1,6 @@
 # Collaborative pixelart drawing
 
-
 ![Screenshot](/media/screenshot.png)
-
 
 ## Description
 
@@ -19,26 +17,10 @@ This project uses the following components:
 
 - [p5js](https://p5js.org/); A creative coding library, used for the drawing canvas.
 - [Azure Web PubSub](https://ably.com/); A realtime messaging service on Azure, used as the serverless WebSockets component.
-- [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview); A serverless compute service from Microsoft Azure.
-- [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview); An Azure service for hosting static websites.
+- [Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-overview); A serverless compute service from Microsoft Azure.
+- [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/overview); An Azure service for hosting static websites.
 
-```mermaid
-flowchart TD
-  subgraph Client devices
-    A[Client A]
-    B[Client B]
-    C[Client C]
-  end
-  
-  F[Azure Function]
-  A <--WebSocket--> WebPubSub
-  B <--WebSocket--> WebPubSub
-  C <--WebSocket--> WebPubSub
-  A --HTTP--> F
-  B --HTTP--> F
-  C --HTTP--> F
-  F --HTTP--> WebPubSub
-```
+![Pubsub using Azure Web PubSub](media/Pubsub-webpubsub-1.png)
 
 The `src` folder contains the front-end files which are based on vanilla JavaScript and [p5js](https://p5js.org/).
 
