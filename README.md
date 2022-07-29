@@ -22,23 +22,7 @@ This project uses the following components:
 - [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview); A serverless compute service from Microsoft Azure.
 - [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview); An Azure service for hosting static websites.
 
-```mermaid
-flowchart TD
-  subgraph Client devices
-    A[Client A]
-    B[Client B]
-    C[Client C]
-  end
-  
-  F[Azure Function]
-  A <--WebSocket--> Ably
-  B <--WebSocket--> Ably
-  C <--WebSocket--> Ably
-  A --HTTP--> F
-  B --HTTP--> F
-  C --HTTP--> F
-  F --HTTP--> Ably
-```
+![Pubsub with Ably](media/Pubsub-ably-1.png)
 
 The `src` folder contains the front-end files which are based on vanilla JavaScript and [p5js](https://p5js.org/).
 
