@@ -3,17 +3,21 @@
   "title": "Ably implementation",
   "steps": [
     {
+      "title": "Ably",
+      "description": "### Pubsub using Ably\r\n\r\nThis CodeTour navigates through the code for the Ably implementation of the collaborative pixelart drawing app.\r\n\r\n![Pubsub using Ably](./media/Pubsub-ably-1.png)"
+    },
+    {
       "directory": "api",
-      "description": "### API Folder\r\n\r\nThe _api_ folder contains the Function App project with two functions:\r\n\r\n- CreateTokenRequest\r\n- ChangeColorPalette"
+      "description": "### api folder\r\n\r\nThe _api_ folder contains the Function App project (based on .NET 6) with two functions:\r\n\r\n- CreateTokenRequest\r\n- ChangeColorPalette"
     },
     {
       "file": "api/Startup.cs",
-      "description": "### StartUp\r\n\r\nThe `StartUp` class is used to configure dependency injection.",
+      "description": "### StartUp class\r\n\r\nThe `StartUp` class is used to configure dependency injection.",
       "line": 10
     },
     {
       "file": "api/Startup.cs",
-      "description": "### ABLY_APIKEY\r\n\r\nThe `ABLY_APIKEY` environment variable contains the API key for Ably with _Publish_, _Subscribe_ and _Presence_ capabilities.",
+      "description": "### ABLY_APIKEY\r\n\r\nThe `ABLY_APIKEY` environment variable contains the API key for Ably with _Publish_, _Subscribe_ and _Presence_ capabilities.\r\n\r\nYou can [sign up](https://ably.com/signup) for a free account.",
       "line": 14,
       "selection": {
         "start": {
@@ -30,6 +34,110 @@
       "file": "api/Startup.cs",
       "description": "### AblyRest Client\r\n\r\nA new instance of the `AblyRest` client is instantiated with the API key. This instance is used when other classes in this project use the `IRestClient` interface in their constructor.",
       "line": 15
+    },
+    {
+      "file": "api/CreateTokenRequest.cs",
+      "description": "### CreateTokenRequest Azure Function\r\n\r\nThe `CreateTokenRequest` function is used by the client-side code to request a new client access token that is used for connecting with Ably.",
+      "line": 20
+    },
+    {
+      "file": "api/ChangeColorPalette.cs",
+      "description": "### ChangeColorPalette Azure Function\r\n\r\nThe `ChangeColorPalette` function is called when a user selects a color palette ID in the dropdown box.",
+      "line": 20
+    },
+    {
+      "file": "api/ChangeColorPalette.cs",
+      "description": "### Publish color palette\r\n\r\nOnce the new color palette has been set, a message is published to Ably with this palette.",
+      "line": 48
+    },
+    {
+      "directory": "src",
+      "description": "### src folder\r\n\r\nThe _src_ folder contains the client-side files for the application. It uses:\r\n\r\n- vanilla JavaScript\r\n- p5js, a creative coding library for the canvas\r\n- the Ably JS client SDK to connect to Ably handle messaging.\r\n\r\n"
+    },
+    {
+      "file": "src/connectAbly.js",
+      "description": "### connectAbly function\r\n\r\nThe `connectAbly` function initiates the Ably connection and subscribes to specific named events.",
+      "line": 9
+    },
+    {
+      "file": "src/connectAbly.js",
+      "description": "### clientOptions\r\n\r\nA `clientOptions` object is made that contains the url to create the client access token and configures the connection not to echo messages back to the sender.",
+      "line": 15
+    },
+    {
+      "file": "src/connectAbly.js",
+      "description": "### Ably.Realtime client\r\n\r\nA new instance of the `Ably.Realtime` client is created with the `clientOptions`.",
+      "line": 16
+    },
+    {
+      "file": "src/connectAbly.js",
+      "description": "### Connected\r\n\r\nOnce the connection is established the channel is retrieved with the instruction to rewind the last two minutes of messages that have been published by Ably. This way the client is able to catch up with historical messages.",
+      "line": 22
+    },
+    {
+      "file": "src/connectAbly.js",
+      "description": "### Subscribe to presence events\r\n\r\nWith Ably we can subscribe to changes in presence. When a new client joins the presence set, other connected clients will received an `enter` presence message. The presence message always contains the `clientId`. Additional data can be sent as well, in this case it's the color of the pixel cursor.",
+      "line": 25
+    },
+    {
+      "file": "src/connectAbly.js",
+      "description": "### Get presence set\r\n\r\nThe entire presence set of a channel can be retrieved using `channel.presence.get`. A collection of members is returned with their clientId and (custom) data.",
+      "line": 34
+    },
+    {
+      "file": "src/connectAbly.js",
+      "description": "### Enter presence\r\n\r\nA client can announce their presence via `channel.presence.enter`. Optionally, an object can be provided that related to the client state, like the pixel cursor color in this case.",
+      "line": 38
+    },
+    {
+      "file": "src/connectAbly.js",
+      "description": "### Subscribing to messages\r\n\r\nFinally, the client is subscribing to specific named events. In this case the `hoverPositionMessage`which calls a method to update the user position on the canvas.",
+      "line": 41,
+      "selection": {
+        "start": {
+          "line": 39,
+          "character": 31
+        },
+        "end": {
+          "line": 39,
+          "character": 51
+        }
+      }
+    },
+    {
+      "file": "src/sketch.js",
+      "description": "### p5js setup\r\n\r\nThe `setup` function is part of the p5js framework and is only run once when the page loads. It creates the canvas and initializes some variables.",
+      "line": 12
+    },
+    {
+      "file": "src/sketch.js",
+      "description": "### start function\r\n\r\nThe `start` function is run when the user clicks the _Connect_ button. A random ID and color are created for the client and the `connectAbly` method is called.",
+      "line": 21
+    },
+    {
+      "file": "src/sketch.js",
+      "description": "### p5js draw\r\n\r\nThe `draw` method is also part of the p5js framework. This method is run continously at the frame rate defined in the `setup`. The function iterates over all the cells (large pixels) in the canvas and draw them in case they have been set to a color. The function also iterates over all the users who are present to draw their pixel cursor positions.",
+      "line": 35
+    },
+    {
+      "file": "src/Cell.js",
+      "description": "### Cell class\r\n\r\nThe Cell class is used to draw large pixel squares on the canvas. It's initialized with values for the column, row, and color.",
+      "line": 8
+    },
+    {
+      "file": "src/User.js",
+      "description": "### User class\r\n\r\nThe `User` class is used to capture the state of connected users. This class has methods to:\r\n\r\n- update it's position (based on mouse movements) and publish a `hoverPositionMessage` message.\r\n- set it's position when a `hoverPositionMessage` is received.\r\n- draw the pixel cursor with the users ID and color.",
+      "line": 11,
+      "selection": {
+        "start": {
+          "line": 19,
+          "character": 30
+        },
+        "end": {
+          "line": 19,
+          "character": 50
+        }
+      }
     }
   ],
   "ref": "main"
