@@ -1,0 +1,154 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Azure Web PubSub implementation",
+  "steps": [
+    {
+      "title": "Azure Web PubSub",
+      "description": "### Pubsub using Azure WebPubSub\r\n\r\nThis CodeTour navigates through the code for the Azure Web PubSub implementation of the collaborative pixelart drawing app.\r\n\r\n![Pubsub using Azure Web PubSub](./media/Pubsub-webpubsub-1.png)"
+    },
+    {
+      "directory": "api",
+      "description": "### api folder\r\n\r\nThe _api_ folder contains the Function App project (based on .NET 6) with two functions:\r\n\r\n- CreateTokenRequest\r\n- ChangeColorPalette"
+    },
+    {
+      "file": "api/CreateTokenRequest.cs",
+      "description": "### CreateTokenRequest Azure Function\r\n\r\nThe `CreateTokenRequest` function is used by the client-side code to request a new client access token that is used for connecting with Azure Web PubSub.",
+      "line": 14
+    },
+    {
+      "file": "api/CreateTokenRequest.cs",
+      "description": "### WebPubSubServiceClient\r\n\r\nA new instance of the `WebPubSubServiceClient` is created which requires the connection string and the Hub name.",
+      "line": 24
+    },
+    {
+      "file": "api/CreateTokenRequest.cs",
+      "description": "### Client access token\r\n\r\nThe `GetClientAccessUriAsync` method is used to create an access token for the client. This method has some optional parameters for the expiration time, userID, and Group roles. Since this demo is using Groups (due to using the `json.webpubsub.azure.v1` subprotocol) these role definitions are required here to be able to join and leave a group.",
+      "line": 32,
+      "selection": {
+        "start": {
+          "line": 25,
+          "character": 52
+        },
+        "end": {
+          "line": 25,
+          "character": 75
+        }
+      }
+    },
+    {
+      "file": "api/ChangeColorPalette.cs",
+      "description": "### ChangeColorPalette Azure Function\r\n\r\nThe `ChangeColorPalette` function is called when a user selects a color palette ID in the dropdown box.",
+      "line": 15
+    },
+    {
+      "file": "api/ChangeColorPalette.cs",
+      "description": "### WebPubSub output binding\r\n\r\nThis function uses the `WebPubSub` output binding to publish a message with the selected color palette. The `WebPubSub` attribute requires the Hub name which is extracted from the query string.",
+      "line": 18
+    },
+    {
+      "file": "api/ChangeColorPalette.cs",
+      "description": "### WebPubSubAction\r\n\r\nThe `WebPubSub` output binding uses `WebPubSubAction` objects that can be added to the `IAsyncCollector<WebPubSubAction>`. The CreateSendToGroupAction requires the Group ID, the payload, and the data type of the payload.",
+      "line": 50
+    },
+    {
+      "directory": "src",
+      "description": "### src folder\r\n\r\nThe _src_ folder contains the client-side files for the application. It uses:\r\n\r\n- vanilla JavaScript\r\n- p5js, a creative coding library for the canvas\r\n- native WebSockets to connect with Azure Web PubSub to handle messaging.\r\n\r\n"
+    },
+    {
+      "file": "src/connectAzureWebPubSub.js",
+      "description": "### connectAzureWebPubSub function\r\n\r\nThe `connectAzureWebPubSub` function initiates the Azure Web PubSub connection and subscribes to specific named events.",
+      "line": 10
+    },
+    {
+      "file": "src/connectAzureWebPubSub.js",
+      "description": "### Call CreateTokenRequest\r\n\r\nThe `CreateTokenRequest` endpoint is called including the Hub name, Group name and user ID as part of the route.",
+      "line": 15,
+      "selection": {
+        "start": {
+          "line": 14,
+          "character": 13
+        },
+        "end": {
+          "line": 14,
+          "character": 31
+        }
+      }
+    },
+    {
+      "file": "src/connectAzureWebPubSub.js",
+      "description": "### WebSocket instance\r\n\r\nAn instance is created of the native WebSocket client. The client access token and the `json.webpubsub.azure.v1` subprotocol are passed as arguments. This specific subprotocol allows you to do pubsub without using event handlers via an upstream server.",
+      "line": 17,
+      "selection": {
+        "start": {
+          "line": 17,
+          "character": 43
+        },
+        "end": {
+          "line": 17,
+          "character": 66
+        }
+      }
+    },
+    {
+      "file": "src/connectAzureWebPubSub.js",
+      "description": "### joinGroup\r\n\r\nOnce the WebSocket connection is established a `joinGroup` is sent which adds the current user to the specified Group. This allows this user to receive messages sent by other users to the same Group.",
+      "line": 26
+    },
+    {
+      "file": "src/connectAzureWebPubSub.js",
+      "description": "### sendToGroup joinedMessage\r\n\r\nAfter joining the Group, a `sendToGroup` message is sent that contains information about the new user (clientId and color of the pixel cursor).",
+      "line": 39,
+      "selection": {
+        "start": {
+          "line": 34,
+          "character": 26
+        },
+        "end": {
+          "line": 34,
+          "character": 39
+        }
+      }
+    },
+    {
+      "file": "src/connectAzureWebPubSub.js",
+      "description": "### onmessage\r\n\r\nThe `onmessage` function is triggered when messages are arriving at the client. We're only interested in messages of type `message` (we don't want the `system` messages). Since custom events are not used in this app, a `messageType` property is added to all the payloads in order to distinguish them with this `switch` statement. This is less elegant than being able to use named events, but at least this doesn't require event handlers via an upstream server.",
+      "line": 48
+    },
+    {
+      "file": "src/sketch.js",
+      "description": "### p5js setup\r\n\r\nThe `setup` function is part of the p5js framework and is only run once when the page loads. It creates the canvas and initializes some variables.",
+      "line": 12
+    },
+    {
+      "file": "src/sketch.js",
+      "description": "### start function\r\n\r\nThe `start` function is run when the user clicks the _Connect_ button. A random ID and color are created for the client and the `connectAbly` method is called.",
+      "line": 21
+    },
+    {
+      "file": "src/sketch.js",
+      "description": "### p5js draw\r\n\r\nThe `draw` method is also part of the p5js framework. This method is run continously at the frame rate defined in the `setup`. The function iterates over all the cells (large pixels) in the canvas and draw them in case they have been set to a color. The function also iterates over all the users who are present to draw their pixel cursor positions.",
+      "line": 35
+    },
+    {
+      "file": "src/Cell.js",
+      "description": "### Cell class\r\n\r\nThe Cell class is used to draw large pixel squares on the canvas. It's initialized with values for the column, row, and color.",
+      "line": 8
+    },
+    {
+      "file": "src/User.js",
+      "description": "### User class\r\n\r\nThe `User` class is used to capture the state of connected users. This class has methods to:\r\n\r\n- update it's position (based on mouse movements) and publish a `hoverPositionMessage` message.\r\n- set it's position when a `hoverPositionMessage` is received.\r\n- draw the pixel cursor with the users ID and color.",
+      "line": 11,
+      "selection": {
+        "start": {
+          "line": 19,
+          "character": 30
+        },
+        "end": {
+          "line": 19,
+          "character": 50
+        }
+      }
+    }
+  ],
+  "ref": "azure-web-pubsub"
+}
