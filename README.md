@@ -1,8 +1,6 @@
 # Collaborative pixelart drawing
 
-
 ![Screenshot](/media/og.png)
-
 
 ## Description
 
@@ -13,14 +11,16 @@ This repository contains two implementations of the same project:
 - The [`main` branch](https://github.com/ably-labs/collaborative-pixel-drawing) of this repo contains the implementation using Ably.
 - The [`azure-web-pubsub` branch](https://github.com/ably-labs/collaborative-pixel-drawing/tree/azure-web-pubsub) contains the implementation using Azure Web PubSub.
 
+> This repository also contains a [CodeTour](https://code.visualstudio.com/learn/educators/codetour) for each of these branches, which you can use to navigate the code when you're using VSCode. You will be asked to download the CodeTour extension when you open the folder.
+
 ## Tech stack
 
 This project uses the following components:
 
 - [p5js](https://p5js.org/); A creative coding library, used for the drawing canvas.
 - [Ably](https://ably.com/); A realtime messaging platform, used as the serverless WebSockets component.
-- [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview); A serverless compute service from Microsoft Azure.
-- [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview); An Azure service for hosting static websites.
+- [Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-overview); A serverless compute service from Microsoft Azure.
+- [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/overview); An Azure service for hosting static websites.
 
 ![Pubsub with Ably](media/Pubsub-ably-1.png)
 
