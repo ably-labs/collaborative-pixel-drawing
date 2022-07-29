@@ -8,7 +8,6 @@ class User {
         this.row;
         this.prevCol;
         this.prevRow;
-        
     }
 
     update() {
