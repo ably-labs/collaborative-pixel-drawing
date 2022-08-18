@@ -4,7 +4,7 @@
 
 ## Description
 
-This repository contains an example how to synchronize state in realtime between many client devices using serverless WebSockets (Ably or Azure Web PubSub). The context of the example is a collaborative drawing canvas that multiple people can use at the same time to draw pixelart.
+This repository contains an example how to synchronize state in realtime between many client devices using serverless WebSockets (Ably or Azure Web PubSub). The context of the example is a collaborative drawing canvas that multiple people can use at the same time to draw pixelart. The code in this repo is used in the blog post [Cloud pubsub services compared: Azure Web PubSub vs Ably](https://ably.com/blog/cloud-pubsub-services-compared-azure-web-pubsub-ably).
 
 This repository contains two implementations of the same project:
 
