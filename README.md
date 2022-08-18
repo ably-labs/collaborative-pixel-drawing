@@ -1,6 +1,6 @@
 # Collaborative pixelart drawing
 
-![Screenshot](/media/og.png)
+![Screenshot](/media/collaborative-pixelart-drawing.gif)
 
 ## Description
 
