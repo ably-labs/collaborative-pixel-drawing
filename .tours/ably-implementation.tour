@@ -17,7 +17,7 @@
     },
     {
       "file": "api/Startup.cs",
-      "description": "### ABLY_APIKEY\r\n\r\nThe `ABLY_APIKEY` environment variable contains the API key for Ably with _Publish_, _Subscribe_ and _Presence_ capabilities.\r\n\r\nYou can [sign up](https://ably.com/signup) for a free account.",
+      "description": "### ABLY_APIKEY\r\n\r\nThe `ABLY_APIKEY` environment variable contains the API key for Ably with _Publish_, _Subscribe_ and _Presence_ capabilities.\r\n\r\nYou can [sign up](https://ably.com/signup?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing) for a free account.",
       "line": 14,
       "selection": {
         "start": {

@@ -4,7 +4,7 @@
 
 ## Description
 
-This repository contains an example how to synchronize state in realtime between many client devices using serverless WebSockets (Ably or Azure Web PubSub). The context of the example is a collaborative drawing canvas that multiple people can use at the same time to draw pixelart. The code in this repo is used in the blog post [Cloud pubsub services compared: Azure Web PubSub vs Ably](https://ably.com/blog/cloud-pubsub-services-compared-azure-web-pubsub-ably).
+This repository contains an example how to synchronize state in realtime between many client devices using serverless WebSockets (Ably or Azure Web PubSub). The context of the example is a collaborative drawing canvas that multiple people can use at the same time to draw pixelart. The code in this repo is used in the blog post [Cloud pubsub services compared: Azure Web PubSub vs Ably](https://ably.com/blog/cloud-pubsub-services-compared-azure-web-pubsub-ably?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing).
 
 This repository contains two implementations of the same project:
 
@@ -18,7 +18,7 @@ This repository contains two implementations of the same project:
 This project uses the following components:
 
 - [p5js](https://p5js.org/); A creative coding library, used for the drawing canvas.
-- [Ably](https://ably.com/); A realtime messaging platform, used as the serverless WebSockets component.
+- [Ably](https://ably.com?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing); A realtime messaging platform, used as the serverless WebSockets component.
 - [Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-overview); A serverless compute service from Microsoft Azure.
 - [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/overview); An Azure service for hosting static websites.
 
@@ -62,7 +62,7 @@ Want to help contributing to this project? Have a look at our [contributing guid
 - [Join our Discord server](https://discord.gg/q89gDHZcBK)
 - [Follow us on Twitter](https://twitter.com/ablyrealtime)
 - [Use our SDKs](https://github.com/ably/)
-- [Visit our website](https://ably.com)
+- [Visit our website](https://ably.com?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing)
 
 ---
-[![Ably logo](https://static.ably.dev/badge-black.svg?collaborative-pixelart-drawing)](https://ably.com)
+[![Ably logo](https://static.ably.dev/badge-black.svg?collaborative-pixelart-drawing)](https://ably.com?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing)
