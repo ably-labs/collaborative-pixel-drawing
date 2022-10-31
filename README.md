@@ -18,7 +18,7 @@ This repository contains two implementations of the same project:
 This project uses the following components:
 
 - [p5js](https://p5js.org/); A creative coding library, used for the drawing canvas.
-- [Ably](https://ably.com?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing); A realtime messaging platform, used as the serverless WebSockets component.
+- [Ably](https://ably.com?utm_campaign=GLB-2208-collaborative-pixel-drawing&utm_content=repo-collaborative-pixel-drawing&utm_source=github&utm_medium=repo&src=GLB-2208-collaborative-pixel-drawing-github); A realtime messaging platform, used as the serverless WebSockets component.
 - [Azure Functions](https://docs.microsoft.com/azure/azure-functions/functions-overview); A serverless compute service from Microsoft Azure.
 - [Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/overview); An Azure service for hosting static websites.
 
@@ -41,7 +41,7 @@ You require the following dependencies to run the solution locally:
 - [Node 16](https://nodejs.org/en/). The JavaScript runtime required to install Azure Static WebApps CLI.
 - [Azure Static Web Apps CLI](https://github.com/Azure/static-web-apps-cli). This is the command line interface to develop and deploy Azure Static Web Apps. Install this tool globally by running this command in the terminal: `npm install -g @azure/static-web-apps-cli`.
 - [Azure Functions Core Tools](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=v4%2Cwindows%2Ccsharp%2Cportal%2Cbash). This is part of the Azure Functions extensions for VSCode that should be recommended for installation when this repo is opened in VSCode.
-- [Sign up](https://ably.com/signup?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing) for a free Ably Account, [create a new app, and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing).
+- [Sign up](https://ably.com/signup?utm_campaign=GLB-2208-collaborative-pixel-drawing&utm_content=repo-collaborative-pixel-drawing&utm_source=github&utm_medium=repo&src=GLB-2208-collaborative-pixel-drawing-github) for a free Ably Account, [create a new app, and copy the API key](https://faqs.ably.com/setting-up-and-managing-api-keys?utm_campaign=GLB-2208-collaborative-pixel-drawing&utm_content=repo-collaborative-pixel-drawing&utm_source=github&utm_medium=repo&src=GLB-2208-collaborative-pixel-drawing-github).
 
 
 ### Building the project
@@ -59,10 +59,10 @@ Want to help contributing to this project? Have a look at our [contributing guid
 
 ## More info
 
-- [Join our Discord server](https://discord.gg/q89gDHZcBK)
+- [Join our Discord server](http://go.ably.com/discord)
 - [Follow us on Twitter](https://twitter.com/ablyrealtime)
 - [Use our SDKs](https://github.com/ably/)
-- [Visit our website](https://ably.com?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing)
+- [Visit our website](https://ably.com?utm_campaign=GLB-2208-collaborative-pixel-drawing&utm_content=repo-collaborative-pixel-drawing&utm_source=github&utm_medium=repo&src=GLB-2208-collaborative-pixel-drawing-github)
 
 ---
-[![Ably logo](https://static.ably.dev/badge-black.svg?collaborative-pixelart-drawing)](https://ably.com?utm_source=github&utm_medium=repo&utm_campaign=collaborative-pixelart-drawing)
+[![Ably logo](https://static.ably.dev/badge-black.svg?collaborative-pixelart-drawing)](https://ably.com?utm_campaign=GLB-2208-collaborative-pixel-drawing&utm_content=repo-collaborative-pixel-drawing&utm_source=github&utm_medium=repo&src=GLB-2208-collaborative-pixel-drawing-github)
